@@ -1,0 +1,182 @@
+/* Загальні налаштування сторінки */
+body {
+    font-family: 'Roboto', sans-serif;
+    background: radial-gradient(circle, #e2e2e2, #c9c9c9);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    transition: background 0.8s ease;
+    padding: 0;
+}
+
+/* Заголовок */
+h1 {
+    font-size: 5vw; /* Адаптивний розмір шрифту */
+    color: #333;
+    margin-bottom: 5vw; /* Адаптивний відступ */
+    text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+    animation: dropIn 1s ease-out forwards;
+}
+
+/* Дошка гри */
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 30vw); /* Використовуємо vw для адаптивності */
+    grid-template-rows: repeat(3, 30vw);
+    gap: 3vw; /* Задаємо відступи між клітинками */
+    transform: scale(1);
+    animation: bounceIn 0.8s ease-out forwards;
+    transform-origin: center;
+}
+
+/* Клітинки */
+.cell {
+    width: 30vw;
+    height: 30vw;
+    background-color: #ffffff;
+    border-radius: 3vw; /* Адаптивні кути */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8vw; /* Адаптивний розмір тексту */
+    font-weight: bold;
+    color: #555;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cell:hover {
+    transform: scale(1.1) rotate(10deg);
+    background-color: #f5f5f5;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Анімації для X і O */
+.cell.X {
+    color: #ff5252;
+    animation: revealX 0.5s ease-out forwards, glowX 1.5s infinite alternate;
+}
+
+.cell.O {
+    color: #42a5f5;
+    animation: revealO 0.5s ease-out forwards, glowO 1.5s infinite alternate;
+}
+
+/* Повідомлення */
+#message {
+    margin-top: 5vw; /* Адаптивний відступ */
+    font-size: 4vw; /* Адаптивний розмір шрифту */
+    color: #333;
+    text-align: center;
+    font-weight: bold;
+    animation: fadeInMessage 0.7s ease-in-out;
+    padding: 2vw 4vw;
+    border-radius: 3vw; /* Адаптивні кути */
+    background-color: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#message:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Лічильник спроб */
+#attempts {
+    margin-top: 5vw; /* Адаптивний відступ */
+    font-size: 3vw; /* Адаптивний розмір шрифту */
+    color: #ff5252;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    animation: slideUpAttempts 0.7s ease-in-out forwards, pulseAttempts 1.5s infinite alternate;
+}
+
+/* Анімації */
+@keyframes revealX {
+    0% { opacity: 0; transform: scale(0.5) rotate(15deg); }
+    100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+@keyframes revealO {
+    0% { opacity: 0; transform: scale(0.5) rotate(-15deg); }
+    100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+@keyframes fadeInMessage {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUpAttempts {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0.8); opacity: 0; }
+    60% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); }
+}
+
+@keyframes dropIn {
+    0% { transform: translateY(-100%); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes glowX {
+    0% { text-shadow: 0 0 10px #ff5252, 0 0 20px #ff5252, 0 0 30px #ff5252; }
+    100% { text-shadow: 0 0 15px #ff0000, 0 0 25px #ff0000, 0 0 40px #ff0000; }
+}
+
+@keyframes glowO {
+    0% { text-shadow: 0 0 10px #42a5f5, 0 0 20px #42a5f5, 0 0 30px #42a5f5; }
+    100% { text-shadow: 0 0 15px #2979ff, 0 0 25px #2979ff, 0 0 40px #2979ff; }
+}
+
+@keyframes pulseAttempts {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.05); }
+}
+
+/* Медіа-запит для маленьких екранів */
+@media (max-width: 600px) {
+    body {
+        padding: 5vw; /* Додамо відступи для більшого комфорту на мобільних */
+        overflow-y: auto; /* Дозволимо вертикальну прокрутку для уникнення проблем з переповненням */
+    }
+
+    h1 {
+        font-size: 7vw; /* Трохи зменшимо шрифт для заголовків */
+        margin-bottom: 3vw; /* Зменшимо відступ між заголовком і дошкою */
+    }
+
+    .board {
+        grid-template-columns: repeat(3, 20vw); /* Зменшимо розміри клітинок для кращого вигляду на маленьких екранах */
+        grid-template-rows: repeat(3, 20vw);
+        gap: 2vw; /* Зменшимо відступи між клітинками */
+    }
+
+    .cell {
+        width: 20vw; /* Відповідні зміни для ширини клітинок */
+        height: 20vw;
+        font-size: 5vw; /* Зменшимо шрифт для X та O */
+        border-radius: 2vw; /* Зменшимо радіус закруглених кутів */
+    }
+
+    #message {
+        font-size: 3vw; /* Зменшимо розмір шрифту для повідомлень */
+        padding: 1.5vw 3vw; /* Зменшимо внутрішні відступи */
+        margin-top: 3vw; /* Зменшимо зовнішній відступ для повідомлень */
+    }
+
+    #attempts {
+        font-size: 2.5vw; /* Зменшимо шрифт для лічильника спроб */
+        margin-top: 4vw; /* Зменшимо зовнішній відступ для лічильника */
+    }
+}
